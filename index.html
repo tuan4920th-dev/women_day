@@ -2,12 +2,12 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>Happy Women Day💖</title>
+  <title>Happy Women Day 💖</title>
   <style>
     body {
       margin: 0;
       padding: 0;
-      background: #ffe6f2;
+      background: linear-gradient(180deg, #ffe6f9, #f4d0ff);
       font-family: 'Segoe UI', sans-serif;
       display: flex;
       flex-direction: column;
@@ -17,46 +17,116 @@
       overflow: hidden;
     }
 
-    /* ===== Tiêu đề ===== */
     h1 {
-      color: #d6336c;
+      color: #c2185b;
       font-size: 36px;
       margin: -60px 0 40px 0;
       display: none;
+      text-shadow: 1px 1px 3px #fff;
     }
 
-    /* ===== Lá thư ===== */
+    /* ===== Phong bì ===== */
     .envelope {
-      width: 50vw;
-      height: 40vh;
-      background: linear-gradient(145deg, #ff80aa, #ff4d88);
       position: relative;
-      border-radius: 15px;
+      width: 340px;
+      height: 220px;
+      background: #a36bff;
+      border-radius: 8px;
       cursor: pointer;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.25);
       transition: transform 0.4s ease, box-shadow 0.4s ease;
     }
     .envelope:hover {
-      transform: scale(1.02);
-      box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+      transform: scale(1.03);
+      box-shadow: 0 12px 35px rgba(0,0,0,0.35);
     }
+
     .flap {
       position: absolute;
       top: 0;
       left: 0;
       width: 0;
       height: 0;
-      border-left: 25vw solid transparent;
-      border-right: 25vw solid transparent;
-      border-bottom: 20vh solid #ff3366;
-      border-radius: 5px;
+      border-left: 170px solid transparent;
+      border-right: 170px solid transparent;
+      border-bottom: 110px solid #8a44ff;
+      transform-origin: top;
+      transition: transform 1s ease-in-out;
+      z-index: 2;
+    }
+
+    .body {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 110px;
+      background: #a36bff;
+      border-radius: 0 0 8px 8px;
+      z-index: 1;
+    }
+
+    /* ===== Thiệp bên trong ===== */
+    .card {
+      position: absolute;
+      top: 50px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 250px;
+      height: 150px;
+      background: #fff;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      transition: transform 1.2s ease-in-out, opacity 0.8s ease;
+      z-index: 0;
+      opacity: 0;
+      overflow: hidden;
+    }
+
+    .card h2 {
+      color: #ff4d88;
+      font-size: 40px;
+      margin: 15px 0 5px 0;
+    }
+    .card p {
+      color: #a84c9d;
+      font-size: 20px;
+      margin: 0;
+    }
+
+    /* Hoa và tim trang trí trong thiệp */
+    .card .decor {
+      position: absolute;
+      font-size: 22px;
+      opacity: 0.8;
+      animation: float 3s ease-in-out infinite alternate;
+    }
+    .decor.flower1 { top: 10px; left: 20px; color: #ff6fb3; animation-delay: 0.2s; }
+    .decor.flower2 { bottom: 10px; right: 20px; color: #a36bff; animation-delay: 0.8s; }
+    .decor.heart1  { top: 20px; right: 15px; color: #ff3366; animation-delay: 1s; }
+    .decor.heart2  { bottom: 15px; left: 25px; color: #ff3366; animation-delay: 0.4s; }
+
+    @keyframes float {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-8px); }
+    }
+
+    /* ===== Khi mở thư ===== */
+    .open .flap {
+      transform: rotateX(180deg);
+    }
+    .open .card {
+      transform: translate(-50%, -130px);
+      opacity: 1;
+      z-index: 3;
     }
 
     /* ===== Trái tim ===== */
     .heart {
       display: none;
-      width: 180px;
-      height: 180px;
+      width: 160px;
+      height: 160px;
       background: #ff3366;
       position: relative;
       transform: rotate(-45deg);
@@ -67,84 +137,103 @@
     .heart:after {
       content: "";
       position: absolute;
-      width: 180px;
-      height: 180px;
+      width: 160px;
+      height: 160px;
       background: #ff3366;
       border-radius: 50%;
     }
-    .heart:before {
-      top: -90px;
-      left: 0;
-    }
-    .heart:after {
-      left: 90px;
-      top: 0;
-    }
+    .heart:before { top: -80px; left: 0; }
+    .heart:after { left: 80px; top: 0; }
 
     @keyframes heartbeat {
-      0%   { transform: rotate(-45deg) scale(1); }
-      25%  { transform: rotate(-45deg) scale(1.1); }
-      50%  { transform: rotate(-45deg) scale(1); }
-      75%  { transform: rotate(-45deg) scale(1.1); }
-      100% { transform: rotate(-45deg) scale(1); }
+      0%, 50%, 100% { transform: rotate(-45deg) scale(1); }
+      25%, 75% { transform: rotate(-45deg) scale(1.1); }
     }
 
-    /* ===== Dòng chờ ===== */
-    .waiting {
-      display: none;
-      font-size: 20px;
-      color: #c2185b;
-      margin-top: 40px;
-      opacity: 0;
-      transition: opacity 1s ease;
+    /* ===== Hoa rơi xung quanh ===== */
+    .falling {
+      position: fixed;
+      top: -20px;
+      font-size: 24px;
+      animation: fall 6s linear infinite;
+      opacity: 0.8;
     }
 
-    /* ===== Lời chúc ===== */
-    .message {
+    @keyframes fall {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+    }
+
+    /* ===== Dòng chờ và lời chúc ===== */
+    .waiting, .message {
       display: none;
       font-size: 22px;
       font-weight: bold;
-      color: #d6336c;
-      margin-top: 60px;
+      color: #c2185b;
+      margin-top: 40px;
       opacity: 0;
-      transition: opacity 2s ease;
+      transition: opacity 1.5s ease;
     }
   </style>
 </head>
 <body>
-  <h1 id="title">🎉🌟Happy Women Day🌟🎉</h1>
+  <h1 id="title">🎉🌸 Happy Women Day 🌸🎉</h1>
 
-  <div class="envelope" onclick="openLetter()">
+  <div class="envelope" onclick="openLetter(this)">
     <div class="flap"></div>
+    <div class="body"></div>
+    <div class="card">
+      <span class="decor flower1">🌸</span>
+      <span class="decor flower2">🌼</span>
+      <span class="decor heart1">💖</span>
+      <span class="decor heart2">💞</span>
+      <h2>20-10</h2>
+      <p>Phụ Nữ Việt Nam</p>
+    </div>
   </div>
 
   <div class="heart" id="heart"></div>
-
   <div class="waiting" id="waiting">💌 Chờ xíu nhé... ✨</div>
-
-  <div class="message" id="message">💖 Chúc Trúc Phương luôn xinh đẹp, hạnh phúc & thành công 🥰🥰🥰</div>
+  <div class="message" id="message">💖 Chúc Trúc Phương luôn xinh đẹp, hạnh phúc, thành công và nhiều sức khỏe 💖 Yêu cậu🌼🌼🌼 </div>
 
   <script>
-    function openLetter() {
-      document.querySelector(".envelope").style.display = "none";
-      document.getElementById("title").style.display = "block";
+    // Hiệu ứng mở thư
+    function openLetter(el) {
+      el.classList.add("open");
 
-      const heart = document.getElementById("heart");
-      heart.style.display = "block";
+      // Thả hoa bay quanh màn hình
+      for (let i = 0; i < 15; i++) {
+        const emoji = ["🌸", "💖", "🌼", "💞"][Math.floor(Math.random()*4)];
+        const flower = document.createElement("div");
+        flower.className = "falling";
+        flower.textContent = emoji;
+        flower.style.left = Math.random() * 100 + "vw";
+        flower.style.animationDuration = (4 + Math.random() * 4) + "s";
+        document.body.appendChild(flower);
+        setTimeout(() => flower.remove(), 8000);
+      }
 
-      const waiting = document.getElementById("waiting");
-      waiting.style.display = "block";
-      setTimeout(() => waiting.style.opacity = 1, 200);
-
-      // Sau 10 giây, ẩn dòng "chờ xíu" và hiện lời chúc
       setTimeout(() => {
-        waiting.style.opacity = 0;
-        setTimeout(() => waiting.style.display = "none", 400);
+        el.style.display = "none";
+        document.getElementById("title").style.display = "block";
 
-        const msg = document.getElementById("message");
-        msg.style.display = "block";
-        setTimeout(() => msg.style.opacity = 1, 200);
-      }, 5000);
+        const heart = document.getElementById("heart");
+        heart.style.display = "block";
+
+        const waiting = document.getElementById("waiting");
+        waiting.style.display = "block";
+        setTimeout(() => waiting.style.opacity = 1, 300);
+
+        // Sau 5 giây, hiện lời chúc
+        setTimeout(() => {
+          waiting.style.opacity = 0;
+          setTimeout(() => waiting.style.display = "none", 600);
+
+          const msg = document.getElementById("message");
+          msg.style.display = "block";
+          setTimeout(() => msg.style.opacity = 1, 300);
+        }, 5000);
+      }, 1800);
     }
   </script>
 </body>
